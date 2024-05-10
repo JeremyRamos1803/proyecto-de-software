@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://tu_usuario:tu_contraseña@db:5432/recetas_db"
+    networks:
+      - recetas_net
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: recetas_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1803
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - recetas_net
+
+networks:
+  recetas_net:
+
+volumes:
+  db-data:
