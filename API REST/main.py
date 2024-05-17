@@ -9,7 +9,7 @@ DATABASE = {
     'dbname': 'recetas_db',
     'user': 'postgres',
     'password': '1803',
-    'host': 'localhost'
+    'host': 'db'
 }
 
 def get_db_connection():
@@ -36,8 +36,10 @@ def agregar_receta():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     finally:
-        cursor.close()
-        conn.close()
+        if 'cursor' in locals():
+            cursor.close()
+        if 'conn' in locals():
+            conn.close()
 
 # Endpoint para obtener todas las recetas
 @app.route('/recetas', methods=['GET'])
@@ -69,4 +71,4 @@ def obtener_recetas():
         conn.close()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')

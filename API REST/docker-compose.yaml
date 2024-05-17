@@ -8,7 +8,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: "postgresql://tu_usuario:tu_contraseña@db:5432/recetas_db"
+      DATABASE_URL: "postgresql://postgres:1803@db:5432/recetas_db"
     networks:
       - recetas_net
 
